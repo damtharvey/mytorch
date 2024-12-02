@@ -1,0 +1,10 @@
+Metadata-Version: 2.1
+Name: mytorch
+Version: 0.1.0
+Summary: A custom neural network framework with autograd functionality
+Home-page: https://github.com/damtharvey/mytorch
+Author: Your Name
+Author-email: harvey.dam@utah.edu
+Classifier: Programming Language :: Python :: 3
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.6
