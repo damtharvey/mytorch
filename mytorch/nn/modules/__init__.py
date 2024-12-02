@@ -2,7 +2,7 @@
 
 from .linear import Linear
 from .relu import ReLU
-from .flatten import Flatten
+from .reshape import Reshape
 from .loss import CrossEntropyLoss
 
-__all__ = ["Linear", "ReLU", "Flatten", "CrossEntropyLoss"]
+__all__ = ['Linear', 'ReLU', 'Reshape', 'CrossEntropyLoss']

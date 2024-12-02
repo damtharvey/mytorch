@@ -2,11 +2,13 @@ import torch
 from mytorch.tensor import Tensor
 from mytorch.nn.modules.loss import CrossEntropyLoss
 
+device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+
 # Create dummy data
 batch_size = 3
 num_classes = 5
-input_data = torch.randn(batch_size, num_classes, requires_grad=True)
-target_data = torch.tensor([1, 0, 4], dtype=torch.int64)
+input_data = torch.randn(batch_size, num_classes, device=device, requires_grad=True)
+target_data = torch.tensor([1, 0, 4], device=device, dtype=torch.int64)
 
 # Convert to custom Tensor
 input = Tensor(input_data.detach().clone(), requires_grad=True)
@@ -22,8 +24,8 @@ loss = criterion(input, target)
 loss.backward()
 
 # Print the loss and gradients
-print("Custom MyTorch Loss:", loss.data.item())
-print("Custom MyTorch Input Gradients:")
+print("MyTorch Loss:", loss.data.item())
+print("MyTorch Input Gradients:")
 print(input.grad)
 
 # PyTorch equivalent for comparison
@@ -35,3 +37,5 @@ loss_torch.backward()
 print("\nPyTorch Loss:", loss_torch.item())
 print("PyTorch Input Gradients:")
 print(input_data.grad)
+
+print(f"\nMax difference: {torch.max(torch.abs(input.grad - input_data.grad))}")

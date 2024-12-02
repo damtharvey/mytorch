@@ -1,2 +1,3 @@
 /mytorch.egg-info
+**/*.pyc
 data

@@ -9,8 +9,8 @@ class Function:
         ctx = Context()
         output = cls.forward(ctx, *args)
         # Create an instance to store ctx and inputs
-        func = cls()
-        func.ctx = ctx
+        func = cls(ctx)
+        # func.ctx = ctx
         func.inputs = args
         output.grad_fn = func
         return output
@@ -19,6 +19,9 @@ class Function:
         self.ctx = ctx
         self.saved_tensors = saved_tensors
 
+    @staticmethod
+    def forward(ctx, *args):
+        raise NotImplementedError
+
     def backward(self, grad_output):
-        # To be implemented in subclasses
         raise NotImplementedError
