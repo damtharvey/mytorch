@@ -1,12 +1,12 @@
 # mytorch/nn/modules/linear.py
 
+import torch
+
 from ...tensor import Tensor
 from ..module import Module
 from ...autograd.functions.matmul import MatMul
 from ...autograd.functions.add import Add
 from ...autograd.functions.transpose import Transpose
-import torch
-import math
 from ..init import kaiming_uniform
 
 
@@ -17,7 +17,7 @@ class Linear(Module):
         self._parameters["bias"] = Tensor(torch.zeros(out_features), requires_grad=True)
         kaiming_uniform(self._parameters["weight"])
         # Initialize bias uniformly
-        bound = 1 / math.sqrt(in_features) if in_features > 0 else 0
+        bound = 1 / in_features**0.5 if in_features > 0 else 0
         self._parameters["bias"].data.uniform_(-bound, bound)
 
     def forward(self, input):
