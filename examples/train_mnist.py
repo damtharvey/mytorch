@@ -52,13 +52,11 @@ def main():
     for epoch in range(num_epochs):
         for images, labels in (progress_bar := tqdm.tqdm(train_loader, desc=f"Epoch {epoch + 1}/{num_epochs}")):
             inputs = Tensor(images, requires_grad=True).to(device)
-            targets = labels.to(device)  # You may need to convert labels to a compatible Tensor
+            targets = labels.to(device)
 
-            # Forward pass
             outputs = model(inputs)
             loss = criterion(outputs, targets)
 
-            # Backward and optimize
             loss.backward()
             optimizer.step()
             optimizer.zero_grad()

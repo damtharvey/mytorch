@@ -15,8 +15,8 @@ class Linear(Module):
         super().__init__()
         self._parameters["weight"] = Tensor(torch.empty(out_features, in_features), requires_grad=True)
         self._parameters["bias"] = Tensor(torch.zeros(out_features), requires_grad=True)
+
         kaiming_uniform(self._parameters["weight"])
-        # Initialize bias uniformly
         bound = 1 / in_features**0.5 if in_features > 0 else 0
         self._parameters["bias"].data.uniform_(-bound, bound)
 

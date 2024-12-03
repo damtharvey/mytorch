@@ -14,45 +14,32 @@ class Module:
 
     @property
     def device(self):
-        """
-        Returns the device on which the module's parameters and buffers are located.
-        If parameters and buffers are spread across multiple devices, raise an exception
-        or return None.
-        """
         devices = set()
 
-        # Check parameters
         for param in self._parameters.values():
             if param is not None:
                 devices.add(param.data.device)
 
-        # Check buffers
         for buffer in self._buffers.values():
             if buffer is not None:
                 devices.add(buffer.device)
 
         if len(devices) == 1:
-            # All parameters and buffers are on the same device
             return next(iter(devices))
         elif len(devices) == 0:
-            # No parameters or buffers
             return None
         else:
-            # Parameters and buffers are spread across multiple devices
             raise RuntimeError("Module parameters and buffers are on different devices.")
 
     def to(self, device):
-        # Update parameters
         for name, param in self._parameters.items():
             if param is not None:
                 self._parameters[name] = param.to(device)
 
-        # Update buffers
         for name, buffer in self._buffers.items():
             if buffer is not None:
                 self._buffers[name] = buffer.to(device)
 
-        # Update submodules
         for name, module in self._modules.items():
             if module is not None:
                 module.to(device)

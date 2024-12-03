@@ -14,7 +14,6 @@ class LogSoftmax(Function):
         log_softmax_data = input_stable - sum_exp.log()
         output = Tensor(log_softmax_data, requires_grad=input.requires_grad)
         if input.requires_grad:
-            # Instantiate LogSoftmax with ctx
             output.grad_fn = LogSoftmax(ctx)
             output.grad_fn.inputs = (input, dim)
         return output

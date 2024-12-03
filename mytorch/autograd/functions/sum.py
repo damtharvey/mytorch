@@ -13,7 +13,6 @@ class Sum(Function):
         output_data = input.data.sum(dim=dim, keepdim=keepdim)
         output = Tensor(output_data, requires_grad=input.requires_grad)
         if input.requires_grad:
-            # Instantiate Sum with ctx
             output.grad_fn = Sum(ctx)
             output.grad_fn.inputs = (input, dim, keepdim)
         return output

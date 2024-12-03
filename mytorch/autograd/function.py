@@ -8,9 +8,7 @@ class Function:
     def apply(cls, *args):
         ctx = Context()
         output = cls.forward(ctx, *args)
-        # Create an instance to store ctx and inputs
         func = cls(ctx)
-        # func.ctx = ctx
         func.inputs = args
         output.grad_fn = func
         return output

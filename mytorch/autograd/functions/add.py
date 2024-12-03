@@ -16,7 +16,6 @@ class Add(Function):
         return output
 
     def backward(self, grad_output):
-        # input, bias = self.inputs
         grad_input = grad_output.data
         grad_bias = grad_output.data.sum(dim=0)
         grad_input_tensor = Tensor(grad_input)

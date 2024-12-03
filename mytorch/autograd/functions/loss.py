@@ -16,7 +16,6 @@ class NLLLoss(Function):
         loss_data = -input.data[range(batch_size), target].mean()
         loss = Tensor(loss_data, requires_grad=True)
         if input.requires_grad:
-            # Instantiate NLLLoss with ctx
             loss.grad_fn = NLLLoss(ctx)
             loss.grad_fn.inputs = (input, target)
         return loss
@@ -36,17 +35,15 @@ class NLLLoss(Function):
 class CrossEntropyLoss(Function):
     @staticmethod
     def forward(ctx, input, target):
-        # Handle 1D input: Reshape to (1, C)
         is_1d = input.data.dim() == 1
         if is_1d:
             input = Tensor(input.data.unsqueeze(0), requires_grad=input.requires_grad)
 
-        log_softmax = LogSoftmax.apply(input, 1)  # Apply along last dimension
+        log_softmax = LogSoftmax.apply(input, 1)
         loss = NLLLoss.apply(log_softmax, target)
 
-        ctx.save_for_backward(log_softmax, target, is_1d)  # Save flag for backward pass
+        ctx.save_for_backward(log_softmax, target, is_1d)
 
-        # Return a scalar for 1D input
         return loss if not is_1d else Tensor(loss.data.squeeze(0), requires_grad=loss.requires_grad)
 
     def backward(self, grad_output=None):
@@ -54,7 +51,7 @@ class CrossEntropyLoss(Function):
             grad_output = Tensor(1.0)
 
         log_softmax, target, is_1d = self.ctx.saved_tensors
-        batch_size = log_softmax.data.size(0)  # Works for both 1D and 2D inputs
+        batch_size = log_softmax.data.size(0)
         softmax = log_softmax.data.exp()
 
         grad_input_data = softmax
