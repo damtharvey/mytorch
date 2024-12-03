@@ -1,41 +1,45 @@
 import torch
 from mytorch.tensor import Tensor
-from mytorch.nn.modules.loss import CrossEntropyLoss
+from mytorch.autograd.functions.loss import CrossEntropyLoss
 
-device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-
-# Create dummy data
-batch_size = 3
-num_classes = 5
-input_data = torch.randn(batch_size, num_classes, device=device, requires_grad=True)
-target_data = torch.tensor([1, 0, 4], device=device, dtype=torch.int64)
-
-# Convert to custom Tensor
-input = Tensor(input_data.detach().clone(), requires_grad=True)
-target = target_data  # Targets can remain as torch tensors since they don't require gradients
-
-# Instantiate loss function
-criterion = CrossEntropyLoss()
+# Test Case 1: Single Data Point (1D Input)
+input_1d = Tensor(torch.tensor([2.0, 1.0, 0.1]), requires_grad=True)
+target_1d = torch.tensor(0, dtype=torch.int64)
 
 # Forward pass
-loss = criterion(input, target)
+loss_1d = CrossEntropyLoss.apply(input_1d, target_1d)
+print("1D Loss:", loss_1d.data)
 
 # Backward pass
-loss.backward()
+loss_1d.backward()
+print("1D Input Gradient:", input_1d.grad)
 
-# Print the loss and gradients
-print("MyTorch Loss:", loss.data.item())
-print("MyTorch Input Gradients:")
-print(input.grad)
+# Test Case 2: Batch of Data Points (2D Input)
+input_2d = Tensor(torch.tensor([[2.0, 1.0, 0.1], [0.5, 0.2, 0.3]]), requires_grad=True)
+target_2d = torch.tensor([0, 2], dtype=torch.int64)
 
-# PyTorch equivalent for comparison
-input_data = input_data.clone().detach().requires_grad_(True)
-criterion_torch = torch.nn.CrossEntropyLoss()
-loss_torch = criterion_torch(input_data, target_data)
-loss_torch.backward()
+# Forward pass
+loss_2d = CrossEntropyLoss.apply(input_2d, target_2d)
+print("2D Loss:", loss_2d.data)
 
-print("\nPyTorch Loss:", loss_torch.item())
-print("PyTorch Input Gradients:")
-print(input_data.grad)
+# Backward pass
+loss_2d.backward()
+print("2D Input Gradient:", input_2d.grad)
 
-print(f"\nMax difference: {torch.max(torch.abs(input.grad - input_data.grad))}")
+# PyTorch comparison
+import torch.nn.functional as F
+
+# PyTorch CrossEntropyLoss for comparison
+input_1d_pt = torch.tensor([2.0, 1.0, 0.1], requires_grad=True)
+target_1d_pt = torch.tensor(0, dtype=torch.int64)
+loss_1d_pt = F.cross_entropy(input_1d_pt.unsqueeze(0), target_1d_pt.unsqueeze(0))  # 1D input
+loss_1d_pt.backward()
+print("1D PyTorch Loss:", loss_1d_pt.item())
+print("1D PyTorch Gradient:", input_1d_pt.grad)
+
+input_2d_pt = torch.tensor([[2.0, 1.0, 0.1], [0.5, 0.2, 0.3]], requires_grad=True)
+target_2d_pt = torch.tensor([0, 2], dtype=torch.int64)
+loss_2d_pt = F.cross_entropy(input_2d_pt, target_2d_pt)  # 2D input
+loss_2d_pt.backward()
+print("2D PyTorch Loss:", loss_2d_pt.item())
+print("2D PyTorch Gradient:", input_2d_pt.grad)

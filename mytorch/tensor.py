@@ -63,6 +63,10 @@ class Tensor:
     def dim(self):
         return self.data.dim()
 
+    @property
+    def device(self):
+        return self.data.device
+
     def to(self, device):
         return Tensor(self.data.to(device), requires_grad=self.requires_grad)
 
