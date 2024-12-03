@@ -3,6 +3,7 @@
 from ...tensor import Tensor
 from ..function import Function
 
+
 class ReLU(Function):
     @staticmethod
     def forward(ctx, input):
@@ -15,7 +16,7 @@ class ReLU(Function):
         return output
 
     def backward(self, grad_output):
-        input, = self.inputs
+        (input,) = self.inputs
         grad_input_data = grad_output.data.clone()
         grad_input_data[input.data <= 0] = 0
         grad_input = Tensor(grad_input_data)

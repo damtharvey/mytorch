@@ -1,5 +1,6 @@
 # mytorch/optim/sgd.py
 
+
 class SGD:
     def __init__(self, parameters, lr=0.01):
         """

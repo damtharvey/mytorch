@@ -9,6 +9,7 @@ from ...nn.modules.transpose import TransposeModule  # Ensure correct import
 import torch
 import math
 
+
 def calculate_fan_in_and_fan_out(tensor):
     dimensions = tensor.dim()
     if dimensions < 2:
@@ -22,10 +23,12 @@ def calculate_fan_in_and_fan_out(tensor):
     fan_out = num_output_fmaps * receptive_field_size
     return fan_in, fan_out
 
+
 def kaiming_uniform(tensor, a=math.sqrt(5)):
     fan_in, fan_out = calculate_fan_in_and_fan_out(tensor)
     bound = math.sqrt(6 / fan_in) if fan_in > 0 else 0
     tensor.data.uniform_(-bound, bound)
+
 
 class Linear(Module):
     def __init__(self, in_features, out_features):
@@ -43,10 +46,10 @@ class Linear(Module):
     def forward(self, input):
         # Transpose weight matrix to (in_features, out_features)
         transposed_weight = Transpose.apply(self.weight, 0, 1)  # (in_features, out_features)
-        
+
         # Perform matrix multiplication: (batch_size x in_features) @ (in_features x out_features) = (batch_size x out_features)
         out = MatMul.apply(input, transposed_weight)
-        
+
         # Add bias: (batch_size x out_features) + (out_features,) = (batch_size x out_features)
         out = Add.apply(out, self.bias)
         return out

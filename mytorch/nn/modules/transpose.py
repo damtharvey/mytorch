@@ -3,6 +3,7 @@
 from ..module import Module
 from ...autograd.functions.transpose import Transpose
 
+
 class TransposeModule(Module):
     def __init__(self, dim0, dim1):
         super().__init__()

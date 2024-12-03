@@ -22,6 +22,7 @@ class Tensor:
 
     def reshape(self, *shape):
         from .autograd.functions.reshape import Reshape  # Local import
+
         return Reshape.apply(self, shape)
 
     def view(self, *shape):
@@ -29,6 +30,7 @@ class Tensor:
 
     def sum(self, dim=None, keepdim=False):
         from .autograd.functions.sum import Sum  # Local import
+
         return Sum.apply(self, dim, keepdim)
 
     def backward(self, grad_output=None):
@@ -54,10 +56,10 @@ class Tensor:
     @property
     def shape(self):
         return self.data.shape
-    
+
     def size(self, dim=None):
         return self.data.size(dim)
-    
+
     def dim(self):
         return self.data.dim()
 

@@ -5,4 +5,4 @@ from .relu import ReLU
 from .reshape import Reshape
 from .loss import CrossEntropyLoss
 
-__all__ = ['Linear', 'ReLU', 'Reshape', 'CrossEntropyLoss']
+__all__ = ["Linear", "ReLU", "Reshape", "CrossEntropyLoss"]

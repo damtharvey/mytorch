@@ -3,6 +3,7 @@
 from ...tensor import Tensor
 from ..function import Function
 
+
 class Transpose(Function):
     @staticmethod
     def forward(ctx, input, dim0, dim1):

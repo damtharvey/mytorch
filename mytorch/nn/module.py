@@ -7,10 +7,10 @@ from collections import OrderedDict
 
 class Module:
     def __init__(self):
-        object.__setattr__(self, '_parameters', OrderedDict())
-        object.__setattr__(self, '_modules', OrderedDict())
-        object.__setattr__(self, '_buffers', OrderedDict())
-        object.__setattr__(self, 'training', True)
+        object.__setattr__(self, "_parameters", OrderedDict())
+        object.__setattr__(self, "_modules", OrderedDict())
+        object.__setattr__(self, "_buffers", OrderedDict())
+        object.__setattr__(self, "training", True)
 
     def to(self, device):
         for param in self.parameters():
@@ -30,7 +30,7 @@ class Module:
             param.grad = None
 
     def __setattr__(self, name, value):
-        if name in ('_parameters', '_modules', '_buffers', 'training'):
+        if name in ("_parameters", "_modules", "_buffers", "training"):
             object.__setattr__(self, name, value)
         elif isinstance(value, Tensor) and value.requires_grad:
             self._parameters[name] = value
@@ -48,8 +48,6 @@ class Module:
             if name in self._modules:
                 del self._modules[name]
             object.__setattr__(self, name, value)
-
-
 
     def __call__(self, *args, **kwargs):
         return self.forward(*args, **kwargs)

@@ -3,6 +3,7 @@
 from ...tensor import Tensor
 from ..function import Function
 
+
 class Reshape(Function):
     @staticmethod
     def forward(ctx, input, shape):
