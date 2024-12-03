@@ -56,7 +56,7 @@ class Module:
         for name, module in self._modules.items():
             if module is not None:
                 module.to(device)
-                
+
         return self
 
     def parameters(self):
