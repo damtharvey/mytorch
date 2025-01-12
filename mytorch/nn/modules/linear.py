@@ -2,9 +2,9 @@ import torch
 
 from ...tensor import Tensor
 from ..module import Module
-from ...autograd.functions.matmul import MatMul
-from ...autograd.functions.add import Add
-from ...autograd.functions.transpose import Transpose
+from ...autograd.functional.matmul import MatMul
+from ...autograd.functional.add import Add
+from ...autograd.functional.transpose import Transpose
 from ..init import kaiming_uniform
 
 

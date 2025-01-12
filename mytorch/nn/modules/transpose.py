@@ -1,6 +1,6 @@
 from ..module import Module
 from mytorch.tensor import Tensor
-from ...autograd.functions.transpose import Transpose
+from ...autograd.functional.transpose import Transpose
 
 
 class TransposeModule(Module):

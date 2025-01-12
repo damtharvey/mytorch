@@ -1,7 +1,7 @@
 from typing import Tuple
 from ..module import Module
 from mytorch.tensor import Tensor
-from mytorch.autograd.functions import Reshape as ReshapeFunction
+from mytorch.autograd.functional import Reshape as ReshapeFunction
 
 
 class Reshape(Module):

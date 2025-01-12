@@ -2,4 +2,4 @@
 
 from .function import Function
 from .context import Context
-from . import functions
+from . import functional

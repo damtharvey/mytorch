@@ -1,6 +1,6 @@
 import torch
 from mytorch.tensor import Tensor
-from mytorch.autograd.functions.loss import CrossEntropyLoss
+from mytorch.autograd.functional.loss import CrossEntropyLoss
 
 # Test Case 1: Single Data Point (1D Input)
 input_1d = Tensor(torch.tensor([2.0, 1.0, 0.1]), requires_grad=True)

@@ -3,9 +3,9 @@
 import torch
 from mytorch.tensor import Tensor
 from mytorch.nn.modules.linear import Linear
-from mytorch.autograd.functions.matmul import MatMul
-from mytorch.autograd.functions.add import Add
-from mytorch.autograd.functions.transpose import Transpose
+from mytorch.autograd.functional.matmul import MatMul
+from mytorch.autograd.functional.add import Add
+from mytorch.autograd.functional.transpose import Transpose
 
 # Define a simple Linear layer
 in_features = 3

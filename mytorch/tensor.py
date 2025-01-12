@@ -57,7 +57,7 @@ class Tensor:
         Returns:
             A reshaped tensor.
         """
-        from .autograd.functions.reshape import Reshape  # Local import
+        from .autograd.functional.reshape import Reshape  # Local import
 
         return Reshape.apply(self, shape)
 
@@ -84,7 +84,7 @@ class Tensor:
         Returns:
             A tensor containing the sum.
         """
-        from .autograd.functions.sum import Sum  # Local import
+        from .autograd.functional.sum import Sum  # Local import
 
         return Sum.apply(self, dim, keepdim)
 
@@ -156,7 +156,7 @@ class Tensor:
         """Element-wise multiplication of two tensors."""
         if not isinstance(other, Tensor):
             other = Tensor(other)
-        from .autograd.functions.mul import Mul  # Local import
+        from .autograd.functional.mul import Mul  # Local import
 
         return Mul.apply(self, other)
 
@@ -168,7 +168,7 @@ class Tensor:
         """Element-wise addition of two tensors."""
         if not isinstance(other, Tensor):
             other = Tensor(other)
-        from .autograd.functions.add import Add  # Local import
+        from .autograd.functional.add import Add  # Local import
 
         return Add.apply(self, other)
 
@@ -180,7 +180,7 @@ class Tensor:
         """Element-wise subtraction."""
         if not isinstance(other, Tensor):
             other = Tensor(other)
-        from .autograd.functions.add import Add
+        from .autograd.functional.add import Add
 
         return Add.apply(self, -other)
 
@@ -192,7 +192,7 @@ class Tensor:
         """Matrix multiplication of two tensors."""
         if not isinstance(other, Tensor):
             other = Tensor(other)
-        from .autograd.functions.matmul import MatMul  # Local import
+        from .autograd.functional.matmul import MatMul  # Local import
 
         return MatMul.apply(self, other)
 
@@ -200,7 +200,7 @@ class Tensor:
         """Right-side matrix multiplication."""
         if not isinstance(other, Tensor):
             other = Tensor(other)
-        from .autograd.functions.matmul import MatMul  # Local import
+        from .autograd.functional.matmul import MatMul  # Local import
 
         return MatMul.apply(other, self)
 

@@ -1,6 +1,6 @@
 from mytorch.tensor import Tensor
 from ..module import Module
-from ...autograd.functions.relu import ReLU as ReLUFunction
+from ...autograd.functional.relu import ReLU as ReLUFunction
 
 
 class ReLU(Module):

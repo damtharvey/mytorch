@@ -1,6 +1,6 @@
 from mytorch.tensor import Tensor
 from ..module import Module
-from ...autograd.functions.loss import CrossEntropyLoss as CrossEntropyLossFunction
+from ...autograd.functional.loss import CrossEntropyLoss as CrossEntropyLossFunction
 
 
 class CrossEntropyLoss(Module):
